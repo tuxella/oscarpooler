@@ -10,7 +10,7 @@ from datetime import datetime
 
 import sys
 import json
-
+import settings
 
 def journey_detail_from_url (request, journey_url):
     journey = Journey.objects.get(url = journey_url)
@@ -123,6 +123,9 @@ def journey_form(request, journey_id):
             return journey_form_render(request, journey_id)
     else:
         return journey_form_render(request, journey_id)
+def current_site_url():
+    url = getattr(settings, 'MY_DJANGO_URL_PATH', '')
+    return url
 
 def journey_view(request, journey_id):
     c = {}
@@ -133,6 +136,7 @@ def journey_view(request, journey_id):
     else:
         j = None
     c["journey"] = j
+    c["base_url"] = current_site_url()
     return render_to_response('journey/view.html', c)
 
 def journey_new(request):

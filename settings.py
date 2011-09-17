@@ -140,3 +140,8 @@ LANGUAGES = (
     ('fr', gettext('French')),
     ('en', gettext('English')),
 )
+
+if DEBUG:
+    MY_DJANGO_URL_PATH = "http://127.0.0.1:8000"
+else:
+    MY_DJANGO_URL_PATH = "http://oscarpooler.com"
