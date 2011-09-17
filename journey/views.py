@@ -157,7 +157,7 @@ def journey_new(request):
     return render_to_response('journey/new.html', c)
 
 def index(request):
-    journeys = Journey.objects.all()[:5]
+    journeys = Journey.objects.all()[:100]
     sys.stderr.write("views.py")
     journeys_and_seats = []
     for j in journeys:
