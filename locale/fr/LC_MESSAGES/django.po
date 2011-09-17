@@ -1,0 +1,91 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-09-17 00:13+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n>1;\n"
+
+#: settings.py:140
+msgid "French"
+msgstr ""
+
+#: settings.py:141
+msgid "English"
+msgstr ""
+
+#: journey/edit.html:11
+msgid "The car pool is just even"
+msgstr ""
+
+#: journey/edit.html:15
+msgid " seats are available"
+msgstr ""
+
+#: journey/edit.html:19
+msgid "seats are lacking"
+msgstr ""
+
+#: journey/edit.html:23
+msgid "From"
+msgstr ""
+
+#: journey/edit.html:33
+msgid "Name"
+msgstr ""
+
+#: journey/edit.html:34
+msgid "How many are you ?"
+msgstr ""
+
+#: journey/edit.html:35
+msgid "Car model"
+msgstr ""
+
+#: journey/edit.html:36
+msgid "Car seats ?"
+msgstr ""
+
+#: journey/edit.html:59
+msgid "Save"
+msgstr "Enregistrer"
+
+#: journey/edit.html:66
+msgid "This journey doesn't exist"
+msgstr ""
+
+#: journey/index.html:8
+msgid "Welcome on Oscar Pooler"
+msgstr ""
+
+#: journey/index.html:9
+msgid "Here you can organize your car pooling without fuss"
+msgstr ""
+
+#: journey/index.html:16
+msgid "from"
+msgstr ""
+
+#: journey/index.html:16
+msgid "to"
+msgstr ""
+
+#: journey/index.html:17
+msgid "seats available"
+msgstr ""
+
+#: journey/index.html:21
+msgid "No journey are available."
+msgstr ""

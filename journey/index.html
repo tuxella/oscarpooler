@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block content %}
+
+<div class="hero-unit">
+  <h1> {% trans "Welcome on Oscar Pooler" %} </h1>
+
+  <div class="container-fluid" align="right">
+    <h3>
+      {% trans "Here you can organize your car pooling without fuss" %}
+    </h3>
+  </div>
+  <div class="container-fluid" align="right">
+    <a href="new/" class="btn primary">{% trans "Create a new journey"%}</a>
+  </div>
+</div>
+
+
+    <div class="container-fluid">
+
+      {% if journeys_and_seats %}
+      <ul>
+	{% for journey, seats in journeys_and_seats %}
+        <li><a href="{% url journey.views.journey_form journey.id %}">{{ journey.title }}:
+	  </a> {% trans "from" %} {{ journey.from_addr }} {% trans "to" %} {{ journey.to_addr }}
+	  [ {{ seats }} ] {% trans "seats available" %}</li>
+	{% endfor %}
+      </ul>
+      {% else %}
+      <p>{% trans "No journey are available." %}</p>
+      {% endif %}
+      </div>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block content %}
+<div class="hero-unit">
+<h2> Youpala </h2>
+<p> toto </p>
+</div>
+<div class="row">
+{% if journey %}
+<h1> {{ journey.title }} </h1>
+<p> Here is your journey : {{ journey.title }} </p>
+<p> There is {{ seats }} seats available </p>
+<p> People : ( {{ peoples }} ) </p>
+<p> Vehicles : ( {{ vehicles }} ) </p>
+<script>
+
+
+  var people = JSON.parse(unquote(' {{ peoples }} '));
+  var vehicle = JSON.parse(unquote(' {{ peoples }} '));
+  console.log(pp);
+
+function unquote(s) {
+return (s.replace(/&quot;/g, "\""))
+}
+
+</script>
+{% else %}
+    <p>This journey doesn't exist</p>
+{% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block content %}
+
+<div class="hero-unit">
+  <h1> {% trans "Create your journey here" %}</h1>
+</div>
+<div class="container-fluid">
+<div class="row">
+
+<form id="journey_new"
+      action="{% url journey.views.journey_new %}" method="POST">
+{% csrf_token %}
+<fieldset>
+  <legend>{% trans "Define your shared journey here" %}</legend>
+  <div class="clearfix">
+    <label for="title">{% trans "Title" %}</label>
+    <div class="input">
+      <input class="xlarge" id="title" name="title" size="30" type="text">
+    </div>
+  </div>
+  <div class="clearfix">
+    <label for="from_addr">{% trans "From address" %}</label>
+    <div class="input">
+      <input class="xlarge" id="from_addr" name="from_addr" size="30"
+	     type="text">
+      <span class="help-inline">
+	{% trans "Where are you leaving from ?" %}
+      </span>
+    </div>
+  </div>
+  <div class="clearfix">
+    <label for="to_addr">{% trans "To address" %}</label>
+    <div class="input">
+      <input class="xlarge" id="to_addr" name="to_addr" size="30"
+	     type="text">
+      <span class="help-inline">
+	{% trans "Where are you going ?" %}
+      </span>
+    </div>
+  </div>
+  <div class="clearfix">
+    <label for="meeting_addr">{% trans "Meeting point" %}</label>
+    <div class="input">
+      <input class="xlarge" id="meeting_addr" name="meeting_addr" size="30"
+	     type="text">
+      <span class="help-inline">
+	{% trans "Any particular point to meet before leaving ?" %}
+      </span>
+    </div>
+  </div>
+  <div class="clearfix">
+    <label for="date">{% trans "Date of the journey" %}</label>
+    <div class="input">
+      <input class="xlarge" id="date" name="date" size="30"
+	     type="text">
+      <span class="help-inline">
+	{% trans "When will you travel ?" %}
+      </span>
+    </div>
+  </div>
+
+    <div class="actions">
+      <input class="btn primary" id="save_journey" type="submit" value="{% trans 'Create' %}"/>
+    </div>
+
+
+</fieldset>
+</form>
+
+{% endblock %}

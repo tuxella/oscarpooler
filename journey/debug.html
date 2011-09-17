@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+
+
+{% block content %}
+
+<script>
+//crsftoken =  '{{ csrf_token }}';
+</script>
+
+<div class="hero-unit">
+  <h2> Here you can launch testing commands </h2>
+</div>
+<div class="row">
+  <div class="span4">
+    <div class="clearfix">
+      <button class="btn primary"
+	      onclick="new_people()"> New People </button>
+    </div>
+  </div>
+  <div class="span4">
+    <div class="clearfix">
+    <button class="btn danger"
+	    onclick="new_people()"> New Vehicle </button>
+    </div>
+  </div>
+
+  <div class="span4">
+    <div class="clearfix">
+      <button class="btn danger"
+	      onclick="new_people()"> New Journey </button>
+      </div>
+  </div>
+
+  <div class="span4 columns">
+    <form>
+      <fieldset>
+	<legend>Edit a journey</legend>
+	<div class="clearfix">
+	  <input type="text" value="id"> ii </input>
+	</div>
+	<div class="clearfix">
+	  <button class="btn danger"
+		  onclick="new_people()"> Goto Journey
+	  </button>
+	</div>
+    </fieldset>
+    </form>
+  </div>
+
+</div>
+{% endblock %}
+
+{% block script %}
+
+{% endblock %}
+
+

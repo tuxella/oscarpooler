@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block content %}
+
+{% if journey %}
+
+<div class="hero-unit">
+  {% if 0 == are_seats %}
+  <h1> {{ journey.title }} : {% trans "The car pool is just even" %}</h1>
+  {% endif %}
+
+  {% if 1 == are_seats %}
+  <h1> {{ journey.title }} : {{ seats }} {% trans " seats are available" %}</h1>
+  {% endif %}
+
+  {% if -1 == are_seats %}
+  <h1> {{ journey.title }} : {{ seats }} {% trans "seats are lacking" %}</h1>
+  {% endif %}
+
+  {% if journey.from %}
+  <h2> {%trans "From" %} {{ journey.from }} {% trans "to" } {{ journey.to }}</h2>
+  {% endif %}
+</div>
+<div class="container-fluid">
+<div class="row">
+  <form id="journey_form" action="{% url journey.views.journey_form journey.id %}" method="POST">{% csrf_token %}
+    <div class="container-fluid">
+      <table>
+	<thead>
+	  <tr>
+	    <th> {% trans "Name" %}</th>
+	    <th> {% trans "How many are you ?" %} </th>
+	    <th> {% trans "Car model" %} </th>
+	    <th> {% trans "Car seats ?" %} </th>
+	  </tr>
+	</thead>
+	<tbody>
+	  {% for people in peoples %}
+	  <tr id="people" >
+	    <td class="blue header"> {{people.name}} </td>
+	    <td> {{people.count}} </p></td>
+	    <td class="blue header"> {{people.vehicle_name}} </td>
+	    <td> {{people.vehicle_seats}} </p></td>
+
+	  </tr>
+	  {% endfor %}
+	  <tr id="new_people">
+	    <td> <input type="text" value="" name="people_name"> </input> </td>
+	    <td> <input class="span2" type="number" value="1" name="people_count"></input> </td>
+	    <td> <input type="text" value="" name="vehicle_name"></input> </td>
+	    <td> <input class="span2" type="number" value="" name="vehicle_seats"></input> </td>
+	  </tr>
+	</tbody>
+      </table>
+    </div>
+    <div class="actions">
+      <input class="btn primary" id="save_journey" type="submit" value="{% trans 'Save' %}"/>
+    </div>
+  </form>
+</div>
+
+{% else %}
+<div class="hero-unit">
+  <p>{% trans "This journey doesn't exist" %}</p>
+</div>
+{% endif %}
+</div>
+
+{% endblock %}

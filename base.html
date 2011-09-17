@@ -1,0 +1,45 @@
+{% load i18n %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>CarPooler</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <script type="application/javascript" src="/media/jquery-1.6.4.js"></script>
+    <script type="application/javascript" src="/media/carpooler.js"></script>
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link href="/media/bootstrap.css" rel="stylesheet">
+    {% block scripts %}
+    {% endblock %}
+  </head>
+<body>
+
+{% block header %}
+<div class="topbar">
+  <div class="fill">
+    <div class="container">
+      {% block title %} <h3> <a href="/">Car Pooler</a> </h3>{% endblock %}
+      <ul class="nav">
+	<li> <a href="/journeys"> List of journeys </a> </li>
+	<li float="left">
+	  <a href="https://github.com/tuxella/oscarpooler/issues/new">
+	     {% trans "A problem ? Give your feedback here" %} </a>
+	</li>
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+<div class="container-fluid">
+{% block content %}
+{% endblock %}
+</div>
+
+</body>
