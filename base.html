@@ -24,17 +24,15 @@
 <div class="topbar">
   <div class="fill">
     <div class="container">
-      {% block title %} <h3> <a href="/">Car Pooler</a> </h3>{% endblock %}
-      <ul class="nav">
-	<li> <a href="/journeys"> List of journeys </a> </li>
-	<li float="left">
-	  <a href="https://github.com/tuxella/oscarpooler/issues/new">
-	     {% trans "A problem ? Give your feedback here" %} </a>
-	</li>
-      </ul>
+      {% block title %} <h3> <a href={% url journey.views.index %}>Car Pooler</a> </h3>{% endblock %}
+      <p>
+	<a href="https://github.com/tuxella/oscarpooler/issues/new">
+	  {% trans "A problem ? Give your feedback here" %} </a>
+      </p>
     </div>
   </div>
 </div>
+
 {% endblock %}
 
 <div class="container-fluid">

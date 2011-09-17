@@ -5,27 +5,23 @@
 {% block content %}
 
 <div class="hero-unit">
-  <h1> {% trans "Welcome on Oscar Pooler" %} </h1>
-
-  <div class="container-fluid" align="right">
-    <h3>
-      {% trans "Here you can organize your car pooling without fuss" %}
-    </h3>
+  <div class="row">
+    <h1> {% trans "Welcome on Oscar Pooler" %} </h1>
   </div>
-  <div class="container-fluid" align="right">
-    <a href={%url journey.views.journey_new %} class="btn primary">{% trans "Create a new journey"%}</a>
+  <p>
+    {% trans "Here you can organize your car pooling without fuss" %}
+  </p>
+  <div class="clearfix">
+    <a href={%url journey.views.journey_new %}
+       class="btn primary">{% trans "Create a new journey"%}</a>
   </div>
 </div>
-
-
-    <div class="container-fluid">
-
-      <h1> {% trans "You have just created a new journey" %} </h1>
-      <h2> {% trans "You can share this link with anyone you want to take part to this :" %}
-      <a href={% url journey.views.journey_form journey.id %}>
-	{% url journey.views.journey_form journey.id %}
-	</a>
- </h2>
-
-    </div>
+<div class="container-fluid">
+  <h1> {% trans "You have just created a new journey" %} </h1>
+  <h2> {% trans "You can share this link with anyone you want to take part to this :" %}
+    <a href={% url journey.views.journey_form journey.id %}>
+      {% url journey.views.journey_form journey.id %}
+    </a>
+  </h2>
+</div>
 {% endblock %}
