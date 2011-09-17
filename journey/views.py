@@ -55,19 +55,14 @@ def journey_edit(request, journey_id):
     av = journey.available_seats()
     return render_to_response('journey/edit.html',
                               {'journey': journey,
-                               'seats':av,
-                               'peoples':peoples,
-                               'vehicles':vehicles})
+                               'seats':av})
 
 
 def journey_form_render(request, journey_id):
     c = {}
     c.update(csrf(request))
-    journey = Journey.objects.filter(pk=journey_id)
-    if journey and 1 <= len(journey):
-        journey = journey[0]
-    else:
-        return render_to_response('journey/edit.html', c)
+    journey = Journey.objects.get(pk=journey_id)
+
     peoples_q = People.objects.filter(journey = journey_id)
     vehicles = Vehicle.objects.filter(journey = journey_id)
     peoples = []
@@ -92,6 +87,7 @@ def journey_form_render(request, journey_id):
             are_seats_available = 1
 
     c.update({'journey': journey,
+              'from': journey.from_addr,
               'are_seats':are_seats_available,
               'seats':available_seats,
               'peoples':peoples,
@@ -147,7 +143,11 @@ def journey_new(request):
         if form.is_valid():
             sys.stderr.write("Valid\n")
             journey_title = form.cleaned_data["title"]
-            j = Journey(title = journey_title)
+            j = Journey(title = journey_title,
+                        from_addr = form.cleaned_data["from_addr"],
+                        to_addr = form.cleaned_data["to_addr"],
+                        meeting_addr = form.cleaned_data["meeting_addr"],
+                        date = form.cleaned_data["date"])
             j.save()
             return journey_view(request, j.id)
         else:
