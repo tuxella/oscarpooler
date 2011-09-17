@@ -21,7 +21,7 @@ class NewJourneyForm(forms.Form):
     from_addr = forms.CharField(max_length=1000, required=False)
     to_addr = forms.CharField(max_length=1000,  required=False)
     meeting_addr = forms.CharField(max_length=1000, required=False)
-    date = forms.DateTimeField(required=False)
+    date = forms.CharField(max_length=200, required = False)
 
     def __init__(self, *args, **kwargs):
         journey = kwargs.pop("journey", None)

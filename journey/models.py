@@ -9,7 +9,7 @@ class Journey(models.Model):
     from_addr = models.CharField(max_length=1000, blank = True)
     to_addr = models.CharField(max_length=1000, blank = True)
     meeting_addr = models.CharField(max_length=1000, blank = True)
-    date = models.DateTimeField('date created', blank = True, null = True)
+    date = models.CharField(max_length=1000, blank = True)
     url_token = models.CharField(max_length=12, blank = True)
     url_admin_token = models.CharField(max_length=6, blank = True)
 
