@@ -18,10 +18,14 @@
   {% if -1 == are_seats %}
   <h1> {{ journey.title }} : {{ seats }} {% trans "seats are lacking" %}</h1>
   {% endif %}
-
-  {% if journey.from %}
-  <h2> {%trans "From" %} {{ journey.from }} {% trans "to" } {{ journey.to }}</h2>
+  <br/>
+  {% if "" != journey.from_addr %}
+  <h2> {%trans "From" %} {{ journey.from_addr }} {% trans "to" %} {{ journey.to_addr }}</h2>
   {% endif %}
+  {% if "" != journey.meeting_addr %}
+  <h2> {%trans "Meeting point" %} {{ journey.meeting_addr }}</h2>
+  {% endif %}
+
 </div>
 <div class="container-fluid">
 <div class="row">
