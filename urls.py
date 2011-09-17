@@ -18,5 +18,6 @@ urlpatterns = patterns('',
                        (r'^peoples/json/(?P<people_id>\d+)/$', 'journey.views.people_json'),
                        (r'^vehicles/json/(?P<vehicle_id>\d+)/$', 'journey.views.vehicle_json'),
                        (r'^test$', 'journey.views.ootest'),
-                       (r'^media/(?P<path>.*)$', 'django.views.static.serve')
+                       (r'^media/(?P<path>.*)$', 'django.views.static.serve'),
+                       (r'', 'journey.views.index')
 )
