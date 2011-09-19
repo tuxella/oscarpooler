@@ -20,15 +20,6 @@ def journey_detail_from_url (request, journey_url):
         return render_to_response('journey/error.html',
                                   {'debug': "This journey doesn't exist"})
 
-def journey_edit(request, journey_id):
-    journey = Journey.objects.get(pk=journey_id)
-    vehicles = Vehicle.objects.filter(journey = journey_id)
-    peoples = People.objects.filter(journey = journey_id)
-    av = journey.available_seats()
-    return render_to_response('journey/edit.html',
-                              {'journey': journey,
-                               'seats':av})
-
 def journey_form_render(request, journey_id):
     c = {}
     c.update(csrf(request))
