@@ -35,7 +35,7 @@
     <label for="from_addr">{% trans "From address" %}</label>
     <div class="input">
       <input class="xlarge" id="from_addr" name="from_addr" size="30"
-	     type="text">
+	     type="text" value="{{from_addr_old_value}}">
       <span class="help-inline important">
 	{% trans "Where are you leaving from ?" %}
       </span>
@@ -45,7 +45,7 @@
     <label for="to_addr">{% trans "To address" %}</label>
     <div class="input">
       <input class="xlarge" id="to_addr" name="to_addr" size="30"
-	     type="text">
+	     type="text" value="{{to_addr_old_value}}">
       <span class="help-inline">
 	{% trans "Where are you going ?" %}
       </span>
@@ -55,7 +55,7 @@
     <label for="meeting_addr">{% trans "Meeting point" %}</label>
     <div class="input">
       <input class="xlarge" id="meeting_addr" name="meeting_addr" size="30"
-	     type="text">
+	     type="text" value="{{meeting_addr_old_value}}">
       <span class="help-inline">
 	{% trans "Any particular point to meet before leaving ?" %}
       </span>
@@ -65,7 +65,7 @@
     <label for="date">{% trans "Date of the journey" %}</label>
     <div class="input">
       <input class="xlarge" id="date" name="date" size="30"
-	     type="text">
+	     type="text" value="{{date_old_value}}">
       <span class="help-inline">
 	{% trans "When will you travel ?" %}
       </span>

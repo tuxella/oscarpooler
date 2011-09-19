@@ -155,8 +155,14 @@ def journey_new(request):
             j.save()
             return journey_view(request, j.id)
         else:
+            sys.stderr.write("%s\n" % dir(form))
             if "title" in form.errors:
-                c.update({"title":"error"})
+                c.update({"title":"error",
+                          "title_old_value" : form.data["title"],
+                          "from_addr_old_value" : form.data["from_addr"],
+                          "to_addr_old_value" : form.data["to_addr"],
+                          "meeting_addr_old_value" : form.data["meeting_addr"],
+                          "date_old_value" : form.data["date"]})
                 return render_to_response('journey/new.html', c)
     else:
         return render_to_response('journey/new.html', c)
