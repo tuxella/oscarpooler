@@ -12,6 +12,22 @@ import sys
 import json
 import settings
 
+def get_journey_from_token(token = ""):
+    sys.stderr.write("Type 3: %s\n" % type(token))
+    try:
+        journey = Journey.objects.get(url_token = token[:16])
+    except:
+        journey = None
+
+    # If no admin token was given, we just return the journey
+
+    if len(token) <= 16:
+        return journey
+    else:
+        # Compare the admin_token given with the one stored in the database
+        return {"journey":journey,
+                "admin":token == journey.url_admin_token}
+
 def journey_detail_from_url (request, journey_url):
     journey = Journey.objects.get(url = journey_url)
     if journey:
@@ -20,11 +36,16 @@ def journey_detail_from_url (request, journey_url):
         return render_to_response('journey/error.html',
                                   {'debug': "This journey doesn't exist"})
 
-def journey_form_render(request, journey_id):
+
+def render_error(request_dict):
+    return render_to_response('journey/error.html', request_dict)
+
+def journey_form_render(request, journey_url):
     c = {}
     c.update(csrf(request))
-    journey = Journey.objects.get(pk=journey_id)
-
+    sys.stderr.write("Type 2: %s\n" % type(journey_url))
+    journey = get_journey_from_token(journey_url)
+    journey_id = journey.id
     peoples_q = People.objects.filter(journey = journey_id)
     vehicles = Vehicle.objects.filter(journey = journey_id)
     peoples = []
@@ -54,18 +75,18 @@ def journey_form_render(request, journey_id):
               'seats':available_seats,
               'peoples':peoples,
               'vehicles':vehicles})
-
     return render_to_response('journey/edit.html', c)
 
-
-def journey_form(request, journey_id):
+def journey_form(request, journey_url):
     c = {}
     c.update(csrf(request))
-    journey = Journey.objects.filter(pk=journey_id)
-    if journey and 1 <= len(journey):
-        journey = journey[0]
-    else:
-        return journey_form_render(request, journey_id)
+    sys.stderr.write("Type 1: %s\n" % type(journey_url))
+    journey = get_journey_from_token(journey_url)
+    if journey is None:
+        render_error({"debug":"This journey doesn't exist"})
+
+    journey_id = journey.id
+
     if "POST" == request.method:
         form = JourneyForm(request.POST, journey = journey)
         if form.is_valid():
@@ -80,11 +101,11 @@ def journey_form(request, journey_id):
                 v = Vehicle(name = vehicle_name, seats = vehicle_seats,
                             people = p, journey = journey)
                 v.save()
-            return journey_form_render(request, journey_id)
+            return journey_form_render(request, journey_url)
         else:
-            return journey_form_render(request, journey_id)
+            return journey_form_render(request, journey_url)
     else:
-        return journey_form_render(request, journey_id)
+        return journey_form_render(request, journey_url)
 
 def current_site_url():
     url = getattr(settings, 'MY_DJANGO_URL_PATH', '')

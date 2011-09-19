@@ -20,7 +20,7 @@
   {% if journeys_and_seats %}
   <ul>
     {% for journey, seats in journeys_and_seats %}
-    <li><a href="{% url journey.views.journey_form journey.id %}">{{ journey.title }}:
+    <li><a href="{% url journey.views.journey_form journey.url_token %}">{{ journey.title }}:
       </a> {% trans "from" %} {{ journey.from_addr }} {% trans "to" %} {{ journey.to_addr }}
       [ {{ seats }} ] {% trans "seats available" %}</li>
     {% endfor %}

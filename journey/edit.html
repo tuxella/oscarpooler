@@ -29,7 +29,7 @@
 </div>
 <div class="container-fluid">
 <div class="row">
-  <form id="journey_form" action="{% url journey.views.journey_form journey.id %}" method="POST">{% csrf_token %}
+  <form id="journey_form" action="{% url journey.views.journey_form journey.url_token %}" method="POST">{% csrf_token %}
     <div class="container-fluid">
       <table>
 	<thead>

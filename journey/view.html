@@ -19,8 +19,8 @@
 <div class="container-fluid">
   <h1> {% trans "You have just created a new journey" %} </h1>
   <h2> {% trans "You can share this link with anyone you want to take part to this :" %}
-    <a href={% url journey.views.journey_form journey.id %}>
-      {{base_url}}{% url journey.views.journey_form journey.id %}
+    <a href={% url journey.views.journey_form journey.url_token %}>
+      {{base_url}}{% url journey.views.journey_form journey.url_token %}
     </a>
   </h2>
 </div>

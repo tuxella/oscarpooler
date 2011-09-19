@@ -10,11 +10,10 @@ class Journey(models.Model):
     to_addr = models.CharField(max_length=1000, blank = True)
     meeting_addr = models.CharField(max_length=1000, blank = True)
     date = models.CharField(max_length=1000, blank = True)
-    url_token = models.CharField(max_length=12, blank = True)
-    url_admin_token = models.CharField(max_length=6, blank = True)
+    url_token = models.CharField(max_length=16, blank = True, unique = True)
+    url_admin_token = models.CharField(max_length=32, blank = True)
 
-    def save(self, force_insert=False, force_update=False):
-        if "" == self.url_token:
+    def _generate_hash(self):
             journey_str = "%s%s%s%s%s%s" % (self.title,
                                             self.from_addr,
                                             self.to_addr,
@@ -24,8 +23,17 @@ class Journey(models.Model):
             hasher = md5()
             hasher.update(journey_str)
             journey_hash = hasher.hexdigest()
-            self.url_token = journey_hash[:len(journey_hash)/2]
-            self.url_admin_token = journey_hash[len(journey_hash)/2:]
+            return {"url_token":journey_hash[:len(journey_hash)/2],
+                    "admin_url_token":journey_hash}
+
+    def save(self, force_insert=False, force_update=False):
+        if "" == self.url_token:
+            tokens = self._generate_hash()
+            # This works because the hash includes the datetime
+            while 0 < len(Journey.objects.filter(url_token = tokens["url_token"])):
+                tokens = self._generate_hash()
+            self.url_token = tokens["url_token"]
+            self.url_admin_token = tokens["admin_url_token"]
         super(Journey, self).save(force_insert, force_update)
 
     def available_seats(self):
