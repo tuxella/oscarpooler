@@ -15,10 +15,20 @@
 {% csrf_token %}
 <fieldset>
   <legend>{% trans "Define your shared journey here" %}</legend>
-  <div class="clearfix">
+  {% if "error" == title %}
+  <div class="clearfix error">
+    {% else %}
+    <div class="clearfix">
+    {% endif %}
     <label for="title">{% trans "Title" %}<span style="color:red"> * </span></label>
     <div class="input">
-      <input class="xlarge" id="title" name="title" size="30" type="text">
+      <input class="xlarge" id="title" name="title" size="30"
+	     type="text">
+      {% if "error" == title %}
+      <span class="help-inline">
+	{% trans "This field is mandatory" %}
+      </span>
+      {% endif %}
     </div>
   </div>
   <div class="clearfix">
@@ -26,7 +36,7 @@
     <div class="input">
       <input class="xlarge" id="from_addr" name="from_addr" size="30"
 	     type="text">
-      <span class="help-inline">
+      <span class="help-inline important">
 	{% trans "Where are you leaving from ?" %}
       </span>
     </div>

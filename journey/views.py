@@ -155,10 +155,11 @@ def journey_new(request):
             j.save()
             return journey_view(request, j.id)
         else:
-            sys.stderr.write("INVALID\n")
-
-
-    return render_to_response('journey/new.html', c)
+            if "title" in form.errors:
+                c.update({"title":"error"})
+                return render_to_response('journey/new.html', c)
+    else:
+        return render_to_response('journey/new.html', c)
 
 def index(request):
     journeys = Journey.objects.all()[:100]
