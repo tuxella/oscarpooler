@@ -1,12 +1,15 @@
 from django.db import models
 import sys
-from hashlib import md5
+from random import Random
 import datetime
 
 # Create your models here.
 
-base_hexa = "0123456789abcdef"
+base_10 = "0123456789"
 base_62 = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+min_url = 916132832 # "baaaaa" in decimal
+max_url = 55884102751 # "ZZZZZZ" in decimal
+
 
 def baseconvert(number, fromdigits, todigits):
     x=long(0)
@@ -30,25 +33,22 @@ class Journey(models.Model):
 
     URL_HASH_LEN = 10
 
-    def _generate_hash(self):
-            journey_str = "%s%s%s%s%s%s" % (self.title,
-                                            self.from_addr,
-                                            self.to_addr,
-                                            self.meeting_addr,
-                                            self.date,
-                                            datetime.datetime.now().strftime("%Y%m%d%H%M%S"))
-            hasher = md5()
-            hasher.update(journey_str)
-            journey_hash = baseconvert(hasher.hexdigest(),
-                                       base_hexa,
-                                       base_62)
-            return {"url_token":journey_hash[:self.URL_HASH_LEN],
-                    "admin_url_token":journey_hash}
+    def _generate_tokens(self):
+            r = Random()
+            url_token = "%s" % baseconvert("%s" % r.randint(min_url, max_url),
+                                           base_10,
+                                           base_62)
+            admin_url_token = "%s%s" % (url_token,
+                                        baseconvert("%s" % r.randint(min_url, max_url),
+                                                    base_10,
+                                                    base_62))
+            return {"url_token":url_token,
+                    "admin_url_token":admin_url_token}
 
     def save(self, force_insert=False, force_update=False):
         if "" == self.url_token:
-            tokens = self._generate_hash()
-            # This works because the hash includes the datetime
+            tokens = self._generate_tokens()
+            # This works because the token is random
             while 0 < len(Journey.objects.filter(url_token = tokens["url_token"])):
                 tokens = self._generate_hash()
             self.url_token = tokens["url_token"]
