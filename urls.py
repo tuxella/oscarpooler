@@ -7,10 +7,9 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
                        (r'^admin/', include(admin.site.urls)),
-                       (r'^journeys/(?P<journey_url>[0-9a-fA-F]+)$', 'journey.views.journey_form'),
-                       (r'^journeys/$', 'journey.views.index'),
-                       (r'^journeys/new$', 'journey.views.journey_new'),
-                       (r'^journeys/new/(?P<journey_url>[0-9a-fA-F]+)/$', 'journey.views.journey_view'),
+                       (r'^j/$', 'journey.views.index'),
+                       (r'^j/new/(?P<journey_url>.+)$', 'journey.views.journey_view'),
+                       (r'^j/new$', 'journey.views.journey_new'),
                        (r'^media/(?P<path>.*)$', 'django.views.static.serve'),
-                       (r'', 'journey.views.index')
-)
+                       (r'^j/(?P<journey_url>.+)$', 'journey.views.journey_form'),
+                       (r'', 'journey.views.index'))
