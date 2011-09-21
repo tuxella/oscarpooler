@@ -49,7 +49,7 @@ class Journey(models.Model):
         if "" == self.url_token:
             tokens = self._generate_tokens()
             # This works because the token is random
-            while 0 < len(Journey.objects.filter(url_token = tokens["url_token"])):
+            while 0 < Journey.objects.filter(url_token = tokens["url_token"]).count():
                 tokens = self._generate_hash()
             self.url_token = tokens["url_token"]
             self.url_admin_token = tokens["admin_url_token"]
