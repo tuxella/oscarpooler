@@ -15,12 +15,11 @@ import settings
 def get_journey_from_token(token = ""):
     sys.stderr.write("Type 3: %s\n" % type(token))
     try:
-        journey = Journey.objects.get(url_token = token[:16])
+        journey = Journey.objects.get(url_token = token[:Journey.URL_HASH_LEN])
     except:
         journey = None
 
     # If no admin token was given, we just return the journey
-
     if len(token) <= 16:
         return journey
     else:
@@ -45,6 +44,11 @@ def journey_form_render(request, journey_url):
     c.update(csrf(request))
     sys.stderr.write("Type 2: %s\n" % type(journey_url))
     journey = get_journey_from_token(journey_url)
+    if hasattr(journey, "id"):
+        sys.stderr.write("\nNot admin\n")
+    else:
+        sys.stderr.write("\nAdmin\n")
+
     journey_id = journey.id
     peoples_q = People.objects.filter(journey = journey_id)
     vehicles = Vehicle.objects.filter(journey = journey_id)
@@ -83,9 +87,7 @@ def journey_form(request, journey_url):
     sys.stderr.write("Type 1: %s\n" % type(journey_url))
     journey = get_journey_from_token(journey_url)
     if journey is None:
-        render_error({"debug":"This journey doesn't exist"})
-
-    journey_id = journey.id
+        return render_error({"debug":"This journey doesn't exist : %s" % journey_url})
 
     if "POST" == request.method:
         form = JourneyForm(request.POST, journey = journey)

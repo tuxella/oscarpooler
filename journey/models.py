@@ -2,7 +2,22 @@ from django.db import models
 import sys
 from hashlib import md5
 import datetime
+
 # Create your models here.
+
+base_hexa = "0123456789abcdef"
+base_62 = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+def baseconvert(number, fromdigits, todigits):
+    x=long(0)
+    for digit in str(number):
+       x = x*len(fromdigits) + fromdigits.index(digit)
+    res=""
+    while x>0:
+        digit = x % len(todigits)
+        res = todigits[digit] + res
+        x /= len(todigits)
+    return res
 
 class Journey(models.Model):
     title = models.CharField(max_length=200)
@@ -13,6 +28,8 @@ class Journey(models.Model):
     url_token = models.CharField(max_length=16, blank = True, unique = True)
     url_admin_token = models.CharField(max_length=32, blank = True)
 
+    URL_HASH_LEN = 10
+
     def _generate_hash(self):
             journey_str = "%s%s%s%s%s%s" % (self.title,
                                             self.from_addr,
@@ -22,8 +39,10 @@ class Journey(models.Model):
                                             datetime.datetime.now().strftime("%Y%m%d%H%M%S"))
             hasher = md5()
             hasher.update(journey_str)
-            journey_hash = hasher.hexdigest()
-            return {"url_token":journey_hash[:len(journey_hash)/2],
+            journey_hash = baseconvert(hasher.hexdigest(),
+                                       base_hexa,
+                                       base_62)
+            return {"url_token":journey_hash[:self.URL_HASH_LEN],
                     "admin_url_token":journey_hash}
 
     def save(self, force_insert=False, force_update=False):

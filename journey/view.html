@@ -18,10 +18,21 @@
 </div>
 <div class="container-fluid">
   <h1> {% trans "You have just created a new journey" %} </h1>
-  <h2> {% trans "You can share this link with anyone you want to take part to this :" %}
-    <a href={% url journey.views.journey_form journey.url_token %}>
-      {{base_url}}{% url journey.views.journey_form journey.url_token %}
-    </a>
-  </h2>
+  <div class="clearfix">
+       <h2> {% trans "You can share this link with anyone you want to take part to this :" %}
+	 <a href={% url journey.views.journey_form journey.url_token %}>
+	   {{base_url}}{% url journey.views.journey_form journey.url_token %}
+	 </a>
+       </h2>
+  </div>
+  <div class="clearfix">
+    <h2> {% trans "To edit, manage or delete this pool :" %}
+      <a href={% url journey.views.journey_form journey.url_admin_token %}>
+	{{base_url}}{% url journey.views.journey_form journey.url_admin_token %}
+      </a>
+    </h2>
+    <p> {% trans "<b>Hint</b> You may not want to share this link to everybody" %} </p>
+  </div>
+
 </div>
 {% endblock %}
